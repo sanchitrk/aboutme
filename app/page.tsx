@@ -22,7 +22,7 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.3, rootMargin: "0px 0px -20% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" }
     );
 
     sectionsRef.current.forEach((section) => {
@@ -38,6 +38,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
+      {/* Desktop navigation */}
       <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
         <div className="flex flex-col gap-4">
           {["intro", "work", "connect"].map((section) => (
@@ -59,13 +60,40 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-8 lg:px-16">
+      {/* Mobile navigation */}
+      <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-10 lg:hidden">
+        <div className="flex gap-3 bg-background/80 backdrop-blur-sm border border-border rounded-full px-4 py-3">
+          {[
+            { id: "intro", label: "Intro" },
+            { id: "work", label: "Work" },
+            { id: "connect", label: "Connect" }
+          ].map((section) => (
+            <button
+              key={section.id}
+              onClick={() =>
+                document
+                  .getElementById(section.id)
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className={`px-3 py-2 text-xs rounded-full transition-all duration-300 ${
+                activeSection === section.id
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {section.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      <main className="max-w-4xl mx-auto px-6 lg:px-16 pb-20 lg:pb-0">
         <header
           id="intro"
           ref={(el) => {
             sectionsRef.current[0] = el;
           }}
-          className="min-h-screen flex items-center opacity-0"
+          className="min-h-screen flex items-center opacity-0 py-16 lg:py-0"
         >
           <div className="grid lg:grid-cols-5 gap-16 w-full">
             <div className="lg:col-span-3 space-y-8">
@@ -73,7 +101,7 @@ export default function Home() {
                 <div className="text-sm text-muted-foreground font-mono tracking-wider">
                   PORTFOLIO / 2025
                 </div>
-                <h1 className="text-6xl lg:text-7xl font-light tracking-tight">
+                <h1 className="text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight">
                   Sanchit
                   <br />
                   <span className="text-muted-foreground">Rk</span>
@@ -81,7 +109,7 @@ export default function Home() {
               </div>
 
               <div className="space-y-6 max-w-md">
-                <p className="text-xl text-muted-foreground leading-relaxed">
+                <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
                   Software engineer crafting digital experiences at the
                   intersection of
                   <span className="text-foreground"> design</span>,
@@ -143,11 +171,11 @@ export default function Home() {
           ref={(el) => {
             sectionsRef.current[1] = el;
           }}
-          className="min-h-screen py-32 opacity-0"
+          className="min-h-screen py-16 lg:py-32 opacity-0"
         >
           <div className="space-y-16">
-            <div className="flex items-end justify-between">
-              <h2 className="text-4xl font-light">Selected Work</h2>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <h2 className="text-3xl lg:text-4xl font-light">Selected Work</h2>
               <div className="text-sm text-muted-foreground font-mono">
                 2016 — 2025
               </div>
@@ -198,20 +226,20 @@ export default function Home() {
               ].map((job, index) => (
                 <div
                   key={index}
-                  className="group grid lg:grid-cols-12 gap-8 py-8 border-b border-border/50 hover:border-border transition-colors duration-500"
+                  className="group grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 py-6 lg:py-8 border-b border-border/50 hover:border-border transition-colors duration-500"
                 >
                   <div className="lg:col-span-2">
-                    <div className="text-2xl font-light text-muted-foreground group-hover:text-foreground transition-colors duration-500">
+                    <div className="text-lg lg:text-2xl font-light text-muted-foreground group-hover:text-foreground transition-colors duration-500">
                       {job.year}
                     </div>
                   </div>
 
                   <div className="lg:col-span-6 space-y-3">
                     <div>
-                      <h3 className="text-xl font-medium">{job.role}</h3>
+                      <h3 className="text-lg lg:text-xl font-medium">{job.role}</h3>
                       <div className="text-muted-foreground">{job.company}</div>
                     </div>
-                    <p className="text-muted-foreground leading-relaxed max-w-lg">
+                    <p className="text-sm lg:text-base text-muted-foreground leading-relaxed max-w-lg">
                       {job.description}
                     </p>
                   </div>
@@ -220,7 +248,7 @@ export default function Home() {
                     {job.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 text-xs text-muted-foreground rounded group-hover:border-muted-foreground/50 transition-colors duration-500"
+                        className="px-2 py-1 text-xs text-muted-foreground border border-border/30 rounded group-hover:border-muted-foreground/50 transition-colors duration-500"
                       >
                         {tech}
                       </span>
@@ -237,14 +265,14 @@ export default function Home() {
           ref={(el) => {
             sectionsRef.current[2] = el;
           }}
-          className="py-32 opacity-0"
+          className="py-16 lg:py-32 opacity-0"
         >
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="space-y-8">
-              <h2 className="text-4xl font-light">Let&apos;s Connect</h2>
+              <h2 className="text-3xl lg:text-4xl font-light">Let&apos;s Connect</h2>
 
               <div className="space-y-6">
-                <p className="text-xl text-muted-foreground leading-relaxed">
+                <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
                   Always interested in new opportunities, collaborations, and
                   conversations about technology and design.
                 </p>
