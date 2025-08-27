@@ -66,7 +66,7 @@ export default function Home() {
           {[
             { id: "intro", label: "Intro" },
             { id: "work", label: "Work" },
-            { id: "connect", label: "Connect" }
+            { id: "connect", label: "Connect" },
           ].map((section) => (
             <button
               key={section.id}
@@ -236,19 +236,18 @@ export default function Home() {
 
                   <div className="lg:col-span-6 space-y-3">
                     <div>
-                      <h3 className="text-lg lg:text-xl font-medium">{job.role}</h3>
+                      <h3 className="text-lg lg:text-xl font-medium">
+                        {job.role}
+                      </h3>
                       <div className="text-muted-foreground">{job.company}</div>
                     </div>
                     <p className="text-sm lg:text-base text-muted-foreground leading-relaxed max-w-lg">
                       {job.description}
                     </p>
-                  </div>
-
-                  <div className="lg:col-span-4 flex flex-wrap gap-2 lg:justify-end">
                     {job.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 text-xs text-muted-foreground border border-border/30 rounded group-hover:border-muted-foreground/50 transition-colors duration-500"
+                        className="inline-block px-3 py-1 text-xs border border-border rounded-full hover:border-muted-foreground/50 transition-colors duration-300 whitespace-nowrap"
                       >
                         {tech}
                       </span>
@@ -269,7 +268,9 @@ export default function Home() {
         >
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="space-y-8">
-              <h2 className="text-3xl lg:text-4xl font-light">Let&apos;s Connect</h2>
+              <h2 className="text-3xl lg:text-4xl font-light">
+                Let&apos;s Connect
+              </h2>
 
               <div className="space-y-6">
                 <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
